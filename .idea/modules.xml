@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/saga.iml" filepath="$PROJECT_DIR$/saga.iml" />
+      <module fileurl="file://$PROJECT_DIR$/saga-booking/saga (1).iml" filepath="$PROJECT_DIR$/saga-booking/saga (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/saga-orchestrator/saga (2).iml" filepath="$PROJECT_DIR$/saga-orchestrator/saga (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/saga-order/saga (3).iml" filepath="$PROJECT_DIR$/saga-order/saga (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/saga-payment/saga (4).iml" filepath="$PROJECT_DIR$/saga-payment/saga (4).iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-booking/saga-booking.iml" filepath="$PROJECT_DIR$/saga-booking/saga-booking.iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-orchestrator/saga-orchestrator.iml" filepath="$PROJECT_DIR$/saga-orchestrator/saga-orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-order/saga-order.iml" filepath="$PROJECT_DIR$/saga-order/saga-order.iml" />

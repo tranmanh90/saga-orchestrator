@@ -7,15 +7,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="saga" />
-        <module name="saga-booking" />
-        <module name="saga-orchestrator" />
-        <module name="saga-payment" />
+        <module name="saga (1)" />
         <module name="saga-order" />
+        <module name="saga-orchestrator" />
+        <module name="saga (2)" />
+        <module name="saga (3)" />
+        <module name="saga" />
+        <module name="saga (4)" />
+        <module name="saga-booking" />
+        <module name="saga-payment" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="saga" target="1.8" />
+      <module name="saga (1)" target="1.8" />
+      <module name="saga (2)" target="1.8" />
+      <module name="saga (3)" target="1.8" />
+      <module name="saga (4)" target="1.8" />
       <module name="saga-booking" target="1.8" />
       <module name="saga-orchestrator" target="1.8" />
       <module name="saga-order" target="1.8" />
@@ -25,6 +33,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="saga" options="-parameters" />
+      <module name="saga (1)" options="-parameters" />
+      <module name="saga (2)" options="-parameters" />
+      <module name="saga (3)" options="-parameters" />
+      <module name="saga (4)" options="-parameters" />
       <module name="saga-booking" options="-parameters" />
       <module name="saga-orchestrator" options="-parameters" />
       <module name="saga-order" options="-parameters" />
