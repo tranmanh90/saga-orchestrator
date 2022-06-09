@@ -32,5 +32,5 @@ spring:
       properties:
         spring.json.value.default.type: com.saga.uni.model.ReservationCommand
     producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: com.saga.uni.serdes.JsonPOJOSerializer
     bootstrap-servers: 10.50.99.50:30001

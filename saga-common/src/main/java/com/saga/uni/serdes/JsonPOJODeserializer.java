@@ -1,21 +1,38 @@
 package com.saga.uni.serdes;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.springframework.core.ResolvableType;
+import org.springframework.lang.Nullable;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class JsonPOJODeserializer<T> implements Deserializer<T> {
 
+    public static final String VALUE_DEFAULT_TYPE = "spring.json.value.default.type";
+    private static final Set<String> OUR_KEYS = new HashSet<>();
+
     private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Class<T> tClass;
+
+    static {
+        OUR_KEYS.add(VALUE_DEFAULT_TYPE);
+    }
+
+    public JsonPOJODeserializer(){
+        this(null);
+    }
 
     public JsonPOJODeserializer(Class<T> clazz){
         this.tClass = clazz;

@@ -1,4 +1,5 @@
 com/saga/uni/vo/RoomStatus.class
+com/saga/uni/serdes/JsonService.class
 com/saga/uni/model/ReservationResult.class
 com/saga/uni/model/OrderCreatedEvent$OrderStatus.class
 com/saga/uni/util/JsonService.class
@@ -7,12 +8,14 @@ com/saga/uni/model/ReservationCommand$1.class
 com/saga/uni/vo/TransactionType.class
 com/saga/uni/model/ReservationCommand.class
 com/saga/uni/model/OrderCommand$OrderRequest.class
+com/saga/uni/vo/OrderStatus.class
 com/saga/uni/vo/ReservationRequest.class
 com/saga/uni/util/Mapper.class
-com/saga/uni/model/ReservationCommand$ReservationRequest.class
+com/saga/uni/serdes/SerdesFactory.class
 com/saga/uni/model/OrderCreatedEvent.class
 com/saga/uni/vo/ResultType.class
 com/saga/uni/model/ReservationResult$ReservationResultBuilder.class
+com/saga/uni/serdes/JsonPOJOSerializer.class
 com/saga/uni/model/PaymentRequest.class
-com/saga/uni/model/PaymentResponse$ResultType.class
 com/saga/uni/model/PaymentResponse.class
+com/saga/uni/serdes/JsonPOJODeserializer.class

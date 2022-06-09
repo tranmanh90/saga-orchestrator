@@ -8,6 +8,9 @@ import org.apache.kafka.common.serialization.Serializer;
 public class JsonPOJOSerializer<T> implements Serializer<T> {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    public JsonPOJOSerializer() {
+    }
+
     @Override
     public byte[] serialize(String topic, T data) {
         if (data == null)
