@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/saga-order/saga (3).iml" filepath="$PROJECT_DIR$/saga-order/saga (3).iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-payment/saga (4).iml" filepath="$PROJECT_DIR$/saga-payment/saga (4).iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-booking/saga-booking.iml" filepath="$PROJECT_DIR$/saga-booking/saga-booking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/saga-common/saga-common.iml" filepath="$PROJECT_DIR$/saga-common/saga-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-orchestrator/saga-orchestrator.iml" filepath="$PROJECT_DIR$/saga-orchestrator/saga-orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-order/saga-order.iml" filepath="$PROJECT_DIR$/saga-order/saga-order.iml" />
       <module fileurl="file://$PROJECT_DIR$/saga-payment/saga-payment.iml" filepath="$PROJECT_DIR$/saga-payment/saga-payment.iml" />

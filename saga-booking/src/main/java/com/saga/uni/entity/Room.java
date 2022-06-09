@@ -31,7 +31,7 @@ public class Room {
     private String roomNo;
 
     @Column(name = "room_order", length = 50)
-    private String order;
+    private UUID order;
 
     @Column(name = "price", length = 30)
     private Double price;
@@ -40,7 +40,7 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
 
-    public Room(String roomNo, String order, Double price, RoomStatus status) {
+    public Room(String roomNo, UUID order, Double price, RoomStatus status) {
         this.roomNo = roomNo;
         this.order = order;
         this.price = price;

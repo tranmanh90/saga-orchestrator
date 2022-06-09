@@ -2,6 +2,7 @@ package com.saga.uni.kafka;
 
 import com.saga.uni.models.*;
 import com.saga.uni.serdes.SerdesFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+@Slf4j
 @Configuration
 @EnableKafkaStreams
 public class KafkaOrchestrator {
@@ -70,6 +72,7 @@ public class KafkaOrchestrator {
 
     private void requestRoomReservation(KStream<String, OrderCreatedEvent> orderCreatedStream) {
         KStream<String, ReservationCommand> reservationRequestStream = orderCreatedStream.mapValues((value) -> {
+            log.warn(String.valueOf(value));
             return new ReservationCommand(value.getId(), ReservationCommand.ReservationRequest.RESERVE);
         });
         reservationRequestStream.foreach((key, value) -> logger.info("Requesting a Room " + value));

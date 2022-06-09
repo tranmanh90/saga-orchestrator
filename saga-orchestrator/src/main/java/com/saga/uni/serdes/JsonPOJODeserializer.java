@@ -1,11 +1,14 @@
 package com.saga.uni.serdes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import lombok.SneakyThrows;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 public class JsonPOJODeserializer<T> implements Deserializer<T> {
@@ -18,21 +21,26 @@ public class JsonPOJODeserializer<T> implements Deserializer<T> {
         this.tClass = clazz;
     }
 
+    @SneakyThrows
     @Override
     public T deserialize(final String topic, final byte[] bytes) {
-        String s = new String(bytes);
+        String s = new String(bytes, StandardCharsets.UTF_8);
+        Gson gson = new Gson();
         if (bytes == null) {
             return null;
         }
 
         T data;
         try {
-            data = objectMapper.readValue(bytes, tClass);
+            if (s.contains("\\")){
+                data = gson.fromJson(s.replaceAll("\\\\", "").substring(1, s.replaceAll("\\\\", "").length() - 1), tClass);
+            } else {
+                data = objectMapper.readValue(s.replaceAll("\\\\", ""), tClass);
+            }
         } catch (final Exception e) {
             logger.warning("Failed to convert " + s + " to " + tClass.getName());
             return null;
         }
-
         return data;
     }
 

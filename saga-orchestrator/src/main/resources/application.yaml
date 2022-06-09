@@ -2,7 +2,7 @@ server:
   port: 8082
 spring:
   application:
-    name: "saga-orchestrator"
+    name: "orchestrator"
   kafka:
     bootstrap-servers: 10.50.99.50:30001
     producer:

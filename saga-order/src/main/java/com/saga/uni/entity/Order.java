@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,10 +27,10 @@ public class Order {
             columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "cause", length = 100)
+    @Column(name = "cancel_cause", length = 100)
     private String cause;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "order_status", length = 20)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 }

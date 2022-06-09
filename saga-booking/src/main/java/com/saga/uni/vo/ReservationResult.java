@@ -3,9 +3,11 @@ package com.saga.uni.vo;
 import com.saga.uni.entity.Room;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class ReservationResult {
-    private String order;
+    private UUID order;
     private String room;
     private Double price;
     private RoomStatus reservationStatus;
@@ -21,7 +23,7 @@ public class ReservationResult {
         this.reservationStatus = room.getStatus();
     }
 
-    public ReservationResult(String order, String room, Double price, RoomStatus reservationStatus, String cause) {
+    public ReservationResult(UUID order, String room, Double price, RoomStatus reservationStatus, String cause) {
         this.order = order;
         this.room = room;
         this.price = price;

@@ -2,15 +2,17 @@ package com.saga.uni.vo;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class ReservationCommand {
-    private String order;
+    private UUID order;
     private ReservationRequest reservationRequest;
 
     public ReservationCommand() {
     }
 
-    public ReservationCommand(String order, Integer room, ReservationRequest reservationRequest) {
+    public ReservationCommand(UUID order, Integer room, ReservationRequest reservationRequest) {
         this.order = order;
         this.reservationRequest = reservationRequest;
         switch (reservationRequest) {
