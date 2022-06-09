@@ -12,7 +12,6 @@
         <module name="saga-orchestrator" />
         <module name="saga (2)" />
         <module name="saga (3)" />
-        <module name="saga" />
         <module name="saga-common" />
         <module name="saga (4)" />
         <module name="saga-booking" />
@@ -26,7 +25,7 @@
       <module name="saga (3)" target="1.8" />
       <module name="saga (4)" target="1.8" />
       <module name="saga-booking" target="1.8" />
-      <module name="saga-common" target="17" />
+      <module name="saga-common" target="1.8" />
       <module name="saga-orchestrator" target="1.8" />
       <module name="saga-order" target="1.8" />
       <module name="saga-payment" target="1.8" />
