@@ -44,6 +44,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.saga.uni</groupId>
+            <artifactId>saga-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.9.0</version>

@@ -1,5 +1,6 @@
 package com.saga.uni.model;
 
+import com.saga.uni.vo.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,4 @@ public class PaymentRequest {
     private UUID trxIdentifier;
     private TransactionType trxType;
     private Double value;
-
-    public enum TransactionType {
-        WITHDRAW,
-        DEPOSIT
-    }
 }

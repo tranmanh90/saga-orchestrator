@@ -1,5 +1,6 @@
 package com.saga.uni.model;
 
+import com.saga.uni.vo.ReservationRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,10 +26,4 @@ public class ReservationCommand {
                 break;
         }
     }
-
-    public enum ReservationRequest {
-        RESERVE, CONFIRM, CANCEL
-    }
-
-
 }

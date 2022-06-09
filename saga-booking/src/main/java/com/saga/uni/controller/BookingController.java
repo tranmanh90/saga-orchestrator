@@ -1,10 +1,10 @@
 package com.saga.uni.controller;
 
 import com.saga.uni.entity.Room;
+import com.saga.uni.model.ReservationCommand;
+import com.saga.uni.model.ReservationResult;
 import com.saga.uni.repository.RoomRepository;
 import com.saga.uni.service.IReservationService;
-import com.saga.uni.vo.ReservationCommand;
-import com.saga.uni.vo.ReservationResult;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-import static com.saga.uni.vo.ReservationCommand.ReservationRequest.CANCEL;
-import static com.saga.uni.vo.ReservationCommand.ReservationRequest.RESERVE;
+import static com.saga.uni.vo.ReservationRequest.CANCEL;
+import static com.saga.uni.vo.ReservationRequest.RESERVE;
 
 @RestController
 @AllArgsConstructor
@@ -44,7 +44,7 @@ public class BookingController implements IBookingController {
     @Override
     public ResponseEntity<ReservationResult> reserveRoom(String roomNo, ReservationCommand reservationCommand) {
         if (reservationCommand.getReservationRequest().equals(RESERVE)) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "This URL can NOT accept reservationReques=" + ReservationCommand.ReservationRequest.RESERVE);
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "This URL can NOT accept reservationReques=" + RESERVE);
         }
         ReservationResult reservationResult = null;
         if (reservationCommand.getReservationRequest().equals(CANCEL)) {

@@ -1,7 +1,7 @@
 package com.saga.uni.kafka;
 
+import com.saga.uni.model.ReservationCommand;
 import com.saga.uni.service.IReservationService;
-import com.saga.uni.vo.ReservationCommand;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

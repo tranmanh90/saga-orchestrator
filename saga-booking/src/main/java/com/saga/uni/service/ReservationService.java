@@ -1,9 +1,9 @@
 package com.saga.uni.service;
 
 import com.saga.uni.entity.Room;
+import com.saga.uni.model.ReservationCommand;
+import com.saga.uni.model.ReservationResult;
 import com.saga.uni.repository.RoomRepository;
-import com.saga.uni.vo.ReservationCommand;
-import com.saga.uni.vo.ReservationResult;
 import com.saga.uni.vo.RoomStatus;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,12 @@ public class ReservationService implements IReservationService {
             room.setOrder(reservationCommand.getOrder());
             room.setStatus(RoomStatus.CONFIRMED);
             roomRepository.save(room);
-            return new ReservationResult(room);
+            return ReservationResult.builder()
+                    .order(room.getOrder())
+                    .room(room.getRoomNo())
+                    .price(room.getPrice())
+                    .reservationStatus(room.getStatus())
+                    .build();
         } else {
             return new ReservationResult(reservationCommand.getOrder(), null, null, null,
                     "There are no rooms reserved for the Order " + reservationCommand.getOrder());
@@ -67,7 +72,11 @@ public class ReservationService implements IReservationService {
             room.setOrder(null);
             room.setStatus(RoomStatus.FREE);
             roomRepository.save(room);
-            return new ReservationResult(room);
+            return ReservationResult.builder()
+                    .order(room.getOrder())
+                    .room(room.getRoomNo())
+                    .price(room.getPrice())
+                    .build();
         } else {
             return new ReservationResult(reservationCommand.getOrder(), null, null, null,
                     "There's no reserved room for the order " + reservationCommand.getOrder());
@@ -82,7 +91,11 @@ public class ReservationService implements IReservationService {
             room.setOrder(reservationCommand.getOrder());
             room.setStatus(RoomStatus.RESERVED);
             roomRepository.save(room);
-            return new ReservationResult(room);
+            return ReservationResult.builder()
+                    .order(room.getOrder())
+                    .room(room.getRoomNo())
+                    .price(room.getPrice())
+                    .build();
         } else {
             return new ReservationResult(reservationCommand.getOrder(), null, null, null,
                     "There are no rooms available");
@@ -97,7 +110,11 @@ public class ReservationService implements IReservationService {
             room.setOrder(null);
             room.setStatus(RoomStatus.FREE);
             roomRepository.save(room);
-            return new ReservationResult(room);
+            return ReservationResult.builder()
+                    .order(room.getOrder())
+                    .room(room.getRoomNo())
+                    .price(room.getPrice())
+                    .build();
         } else {
             return new ReservationResult(null, roomNo, null, null, "There's no such room to be canceled");
         }

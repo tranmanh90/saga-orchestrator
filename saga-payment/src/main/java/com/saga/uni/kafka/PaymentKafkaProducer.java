@@ -1,6 +1,6 @@
 package com.saga.uni.kafka;
 
-import com.saga.uni.vo.TransactionResult;
+import com.saga.uni.model.PaymentResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentKafkaProducer {
 
-    private final KafkaTemplate<String, TransactionResult> kafkaTemplate;
+    private final KafkaTemplate<String, PaymentResponse> kafkaTemplate;
 
-    public PaymentKafkaProducer(KafkaTemplate<String, TransactionResult> kafkaTemplate) {
+    public PaymentKafkaProducer(KafkaTemplate<String, PaymentResponse> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void produceMessage(String topic, TransactionResult data) {
+    public void produceMessage(String topic, PaymentResponse data) {
         try {
             kafkaTemplate.send(topic, data);
         } catch (Exception e) {

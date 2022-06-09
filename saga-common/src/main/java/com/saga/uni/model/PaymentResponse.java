@@ -1,5 +1,6 @@
 package com.saga.uni.model;
 
+import com.saga.uni.vo.ResultType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,4 @@ public class PaymentResponse {
     private Double requestedValue;
     private ResultType resultType;
     private String cause;
-
-    public enum ResultType {
-        APPROVED,
-        DENIED
-    }
 }

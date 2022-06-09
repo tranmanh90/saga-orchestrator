@@ -1,11 +1,12 @@
 package com.saga.uni.kafka;
 
-import com.saga.uni.models.*;
+import com.saga.uni.model.*;
 import com.saga.uni.serdes.SerdesFactory;
+import com.saga.uni.vo.RoomStatus;
+import com.saga.uni.vo.TransactionType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
@@ -14,8 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 
-import java.util.Optional;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 @Slf4j
@@ -33,7 +32,7 @@ public class KafkaOrchestrator {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Bean
-    Topology orchestratorTopology(StreamsBuilder builder){
+    Topology orchestratorTopology(StreamsBuilder builder) {
         /** Get Order and request reservation **/
         KStream<String, OrderCreatedEvent> orders = getPendingOrders(builder);
         requestRoomReservation(orders);
@@ -62,7 +61,7 @@ public class KafkaOrchestrator {
         KStream<String, ReservationResult> results[] = builder.stream(RESERVATION_RESPONSE,
                 Consumed.with(Serdes.String(), SerdesFactory.getSerde(ReservationResult.class)))
                 .branch(
-                        (key, value) -> ReservationResult.RoomStatus.RESERVED.equals(value.getReservationStatus()),
+                        (key, value) -> RoomStatus.RESERVED.equals(value.getReservationStatus()),
                         (key, value) -> (value.getCause() != null)
                 );
         results[0].foreach((key, value) -> logger.info("Processing Reservation response: " + value));
@@ -125,7 +124,7 @@ public class KafkaOrchestrator {
 
     private KStream<String, PaymentRequest> sendPaymentRequestForApprovedReservations(KStream<String, ReservationResult> reservationResult) {
         KStream<String, PaymentRequest> paymentStream = reservationResult.mapValues((reservation) -> {
-            return new PaymentRequest("8668111", reservation.getOrder(), PaymentRequest.TransactionType.WITHDRAW, reservation.getPrice());
+            return new PaymentRequest("8668111", reservation.getOrder(), TransactionType.WITHDRAW, reservation.getPrice());
         });
         paymentStream.foreach((key, value) -> logger.info("Sending Payment request: " + value));
         paymentStream.to(PAYMENT_REQUEST, Produced.with(Serdes.String(), SerdesFactory.getSerde(PaymentRequest.class)));
@@ -135,8 +134,8 @@ public class KafkaOrchestrator {
     private KStream<String, OrderCreatedEvent> getPendingOrders(StreamsBuilder builder) {
         KStream<String, OrderCreatedEvent> orderInputStream = builder.stream(ORDER_REQUEST, Consumed.with(Serdes.String(), SerdesFactory.getSerde(OrderCreatedEvent.class)));
         orderInputStream.filter((key, value) -> value != null)
-                        .filter((key, value) -> value.getStatus() == OrderCreatedEvent.OrderStatus.PENDING)
-                        .foreach((key, value) -> logger.info("Reading PENDING Order: " + value));
+                .filter((key, value) -> value.getStatus() == OrderCreatedEvent.OrderStatus.PENDING)
+                .foreach((key, value) -> logger.info("Reading PENDING Order: " + value));
         return orderInputStream;
     }
 }

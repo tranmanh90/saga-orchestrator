@@ -1,9 +1,10 @@
 package com.saga.uni.kafka;
 
 import com.saga.uni.exception.InsufficientBalanceException;
+import com.saga.uni.model.PaymentRequest;
+import com.saga.uni.model.PaymentResponse;
 import com.saga.uni.service.ITransactionService;
-import com.saga.uni.vo.Transaction;
-import com.saga.uni.vo.TransactionResult;
+import com.saga.uni.vo.ResultType;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -23,36 +24,36 @@ public class PaymentKafkaConsumer {
     private final PaymentKafkaProducer producer;
 
     @KafkaListener(topics = PAYMENT_REQUEST)
-    public void listen(ConsumerRecord<String, Transaction> cr) {
-        Transaction transaction = cr.value();
+    public void listen(ConsumerRecord<String, PaymentRequest> cr) {
+        PaymentRequest transaction = cr.value();
         logger.info("Received Reservation Command: " + transaction);
         processTransaction(transaction);
     }
 
-    private void processTransaction(Transaction transaction) {
-        TransactionResult transactionResult = null;
+    private void processTransaction(PaymentRequest transaction) {
+        PaymentResponse transactionResult = null;
         try {
             String accountNo = transaction.getAccountNo();
             iTransactionService.processTransaction(accountNo, transaction);
-            transactionResult = new TransactionResult(
+            transactionResult = new PaymentResponse(
                     transaction.getAccountNo(),
                     transaction.getTrxIdentifier(),
                     transaction.getValue(),
-                    TransactionResult.ResultType.APPROVED,
+                    ResultType.APPROVED,
                     null);
         } catch (NoResultException e) {
-            transactionResult = new TransactionResult(
+            transactionResult = new PaymentResponse(
                     transaction.getAccountNo(),
                     transaction.getTrxIdentifier(),
                     transaction.getValue(),
-                    TransactionResult.ResultType.DENIED,
+                    ResultType.DENIED,
                     "No Balance for account " + transaction.getAccountNo());
         } catch (InsufficientBalanceException e) {
-            transactionResult = new TransactionResult(
+            transactionResult = new PaymentResponse(
                     transaction.getAccountNo(),
                     transaction.getTrxIdentifier(),
                     transaction.getValue(),
-                    TransactionResult.ResultType.DENIED,
+                    ResultType.DENIED,
                     e.getMessage());
         } finally {
             if (transactionResult != null) {

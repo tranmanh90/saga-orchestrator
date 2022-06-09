@@ -39,7 +39,7 @@
       <module name="saga (3)" options="-parameters" />
       <module name="saga (4)" options="-parameters" />
       <module name="saga-booking" options="-parameters" />
-      <module name="saga-common" options="-parameters" />
+      <module name="saga-common" options="" />
       <module name="saga-orchestrator" options="-parameters" />
       <module name="saga-order" options="-parameters" />
       <module name="saga-payment" options="-parameters" />

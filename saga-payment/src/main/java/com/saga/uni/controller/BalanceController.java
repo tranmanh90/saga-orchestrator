@@ -2,9 +2,9 @@ package com.saga.uni.controller;
 
 import com.saga.uni.entity.Balance;
 import com.saga.uni.exception.InsufficientBalanceException;
+import com.saga.uni.model.PaymentRequest;
 import com.saga.uni.repository.BalanceRepository;
 import com.saga.uni.service.ITransactionService;
-import com.saga.uni.vo.Transaction;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class BalanceController implements IBalanceController {
     }
 
     @Override
-    public ResponseEntity<Balance> transaction(String accNo, Transaction transaction) {
+    public ResponseEntity<Balance> transaction(String accNo, PaymentRequest transaction) {
         try {
             Balance balance = iTransactionService.processTransaction(accNo, transaction);
             return ResponseEntity.ok(balance);

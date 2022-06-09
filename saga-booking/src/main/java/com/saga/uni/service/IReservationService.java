@@ -1,7 +1,7 @@
 package com.saga.uni.service;
 
-import com.saga.uni.vo.ReservationCommand;
-import com.saga.uni.vo.ReservationResult;
+import com.saga.uni.model.ReservationCommand;
+import com.saga.uni.model.ReservationResult;
 
 public interface IReservationService {
     ReservationResult processReservationCommand(ReservationCommand reservationCommand);
