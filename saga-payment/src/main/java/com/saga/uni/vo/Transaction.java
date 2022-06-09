@@ -1,16 +1,21 @@
 package com.saga.uni.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
-
     private String accountNo;
-    private String trxIdentifier;
+    private UUID trxIdentifier;
     private TransactionType trxType;
     private Double value;
 
-    public static enum TransactionType {
+    public enum TransactionType {
         WITHDRAW,
         DEPOSIT
     }

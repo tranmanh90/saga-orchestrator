@@ -1,20 +1,19 @@
-package com.saga.uni.models;
+package com.saga.uni.dto;
 
+import com.saga.uni.vo.OrderStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderCreatedEvent {
+public class UpdateOrderRequest {
     private UUID id;
+    private String cause;
     private OrderStatus status;
-
-    public enum OrderStatus {
-        PENDING, APPROVED, DENIED
-    }
-
 }

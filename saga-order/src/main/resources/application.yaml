@@ -2,12 +2,12 @@ server:
   port: 8081
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:mysql://10.50.99.50:32370/saga-booking}
+    url: ${DATABASE_URL:jdbc:mysql://10.50.99.50:32370/saga-order}
     username: ${DATABASE_USER:root}
     password: ${DATABASE_PASSWORD:Umee2021}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      pool-name: hikari-booking
+      pool-name: hikari-order
       auto-commit: true
       data-source-properties:
         cachePrepStmts: true

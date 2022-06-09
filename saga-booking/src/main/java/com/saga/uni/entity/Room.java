@@ -34,13 +34,13 @@ public class Room {
     private String order;
 
     @Column(name = "price", length = 30)
-    private String price;
+    private Double price;
 
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
 
-    public Room(String roomNo, String order, String price, RoomStatus status) {
+    public Room(String roomNo, String order, Double price, RoomStatus status) {
         this.roomNo = roomNo;
         this.order = order;
         this.price = price;

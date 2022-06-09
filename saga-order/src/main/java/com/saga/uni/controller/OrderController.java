@@ -2,6 +2,8 @@ package com.saga.uni.controller;
 
 import com.saga.uni.dto.CreateOrderRequest;
 import com.saga.uni.dto.CreateOrderResponse;
+import com.saga.uni.dto.UpdateOrderRequest;
+import com.saga.uni.dto.UpdateOrderResponse;
 import com.saga.uni.service.IOrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,5 +18,10 @@ public class OrderController implements IOrderController {
     @Override
     public ResponseEntity<CreateOrderResponse> createOrder(CreateOrderRequest request) {
         return ResponseEntity.ok(iOrderService.createOrder(request));
+    }
+
+    @Override
+    public ResponseEntity<UpdateOrderResponse> updateOrder(UpdateOrderRequest request) {
+        return null;
     }
 }

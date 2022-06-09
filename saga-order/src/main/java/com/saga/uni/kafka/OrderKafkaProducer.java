@@ -14,7 +14,7 @@ public class OrderKafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void produceMessage(String data, String topic) {
+    public void produceMessage(String topic, String data) {
         try {
             kafkaTemplate.send(topic, data);
         } catch (Exception e) {

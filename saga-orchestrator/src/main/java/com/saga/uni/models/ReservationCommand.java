@@ -1,20 +1,23 @@
 package com.saga.uni.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
 public class ReservationCommand {
-    private String order;
+    private UUID order;
     private ReservationRequest reservationRequest;
 
-
-    public ReservationCommand() {
-    }
-
-    public ReservationCommand(String order, ReservationRequest reservationRequest) {
+    public ReservationCommand(UUID order, ReservationRequest reservationRequest) {
         this.order = order;
         this.reservationRequest = reservationRequest;
         switch (reservationRequest) {
             case CANCEL:
             case CONFIRM:
-                if (order == null){
+                if (order == null) {
                     throw new IllegalArgumentException(reservationRequest + " requires an order number");
                 }
                 break;
@@ -23,35 +26,7 @@ public class ReservationCommand {
         }
     }
 
-    public String getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
-
-    public ReservationRequest getReservationRequest() {
-        return this.reservationRequest;
-    }
-
-    public void setReservationRequest(ReservationRequest reservationRequest) {
-        this.reservationRequest = reservationRequest;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "{" +
-            " order='" + getOrder() + "'" +
-            ", reservationRequest='" + getReservationRequest() + "'" +
-            "}";
-    }
-
-
-    
-    public static enum ReservationRequest{
+    public enum ReservationRequest {
         RESERVE, CONFIRM, CANCEL
     }
 

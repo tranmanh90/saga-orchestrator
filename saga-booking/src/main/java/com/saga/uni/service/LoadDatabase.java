@@ -18,11 +18,11 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(RoomRepository repository) {
         return args -> {
             if (repository.findAll().size() == 0) {
-                log.info("Preloading " + repository.save(new Room("100", null, "1000", RoomStatus.FREE)));
-                log.info("Preloading " + repository.save(new Room("200", null, "1000", RoomStatus.FREE)));
-                log.info("Preloading " + repository.save(new Room("300", null, "1000", RoomStatus.FREE)));
-                log.info("Preloading " + repository.save(new Room("400", null, "1000", RoomStatus.FREE)));
-                log.info("Preloading " + repository.save(new Room("500", null, "2000", RoomStatus.FREE)));
+                log.info("Preloading " + repository.save(new Room("100", null, 1000.0, RoomStatus.FREE)));
+                log.info("Preloading " + repository.save(new Room("200", null, 1000.0, RoomStatus.FREE)));
+                log.info("Preloading " + repository.save(new Room("300", null, 1000.0, RoomStatus.FREE)));
+                log.info("Preloading " + repository.save(new Room("400", null, 1000.0, RoomStatus.FREE)));
+                log.info("Preloading " + repository.save(new Room("500", null, 2000.0, RoomStatus.FREE)));
             }
         };
     }

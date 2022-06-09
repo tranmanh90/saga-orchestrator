@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 @Component
 public class BookingKafkaConsumer {
 
+    private static final String RESERVATION_REQUEST = "reservation_request";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     private final IReservationService iReservationService;
@@ -19,8 +20,8 @@ public class BookingKafkaConsumer {
         this.iReservationService = iReservationService;
     }
 
-    @KafkaListener(topics = "reservation_request")
-    public void listen(ConsumerRecord<String, ReservationCommand> cr) throws Exception {
+    @KafkaListener(topics = RESERVATION_REQUEST)
+    public void listen(ConsumerRecord<String, ReservationCommand> cr) {
         ReservationCommand reservationCommand = cr.value();
         logger.info("Received Reservation Command: " + reservationCommand);
         iReservationService.processReservationCommand(reservationCommand);

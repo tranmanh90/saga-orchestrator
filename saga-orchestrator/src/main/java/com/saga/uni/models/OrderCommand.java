@@ -1,15 +1,16 @@
 package com.saga.uni.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
 public class OrderCommand {
     private UUID id;
     private OrderRequest status;
     private String cause;
-
-    public OrderCommand() {
-
-    }
 
     public OrderCommand(UUID id, OrderRequest status, String cause) {
         this.id = id;
@@ -20,41 +21,7 @@ public class OrderCommand {
         this.cause = cause;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public OrderRequest getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderRequest status) {
-        this.status = status;
-    }
-
-    public String getCause() {
-        return cause;
-    }
-
-    public void setCause(String cause) {
-        this.cause = cause;
-    }
-
     public enum OrderRequest {
         CONFIRM, CANCEL
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", status='" + getStatus() + "'" +
-                ", cause='" + getCause() + "'" +
-                "}";
-    }
-
 }

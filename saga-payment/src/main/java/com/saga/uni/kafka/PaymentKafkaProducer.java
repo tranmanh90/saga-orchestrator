@@ -15,9 +15,9 @@ public class PaymentKafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void produceMessage(TransactionResult data) {
+    public void produceMessage(String topic, TransactionResult data) {
         try {
-            kafkaTemplate.send("payment_response", data);
+            kafkaTemplate.send(topic, data);
         } catch (Exception e) {
             log.warn("Publish message kafka to crm fail! Message " + data);
         }

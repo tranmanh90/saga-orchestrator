@@ -16,12 +16,14 @@ import java.util.logging.Logger;
 @AllArgsConstructor
 public class PaymentKafkaConsumer {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private static final String PAYMENT_REQUEST = "payment_request";
+    private static final String PAYMENT_RESPONSE = "payment_response";
 
     private final ITransactionService iTransactionService;
     private final PaymentKafkaProducer producer;
 
-    @KafkaListener(topics = "payment_request")
-    public void listen(ConsumerRecord<String, Transaction> cr) throws Exception {
+    @KafkaListener(topics = PAYMENT_REQUEST)
+    public void listen(ConsumerRecord<String, Transaction> cr) {
         Transaction transaction = cr.value();
         logger.info("Received Reservation Command: " + transaction);
         processTransaction(transaction);
@@ -32,17 +34,29 @@ public class PaymentKafkaConsumer {
         try {
             String accountNo = transaction.getAccountNo();
             iTransactionService.processTransaction(accountNo, transaction);
-            transactionResult = new TransactionResult(transaction.getAccountNo(), transaction.getTrxIdentifier(),
-                    transaction.getValue(), TransactionResult.ResultType.APPROVED, null);
+            transactionResult = new TransactionResult(
+                    transaction.getAccountNo(),
+                    transaction.getTrxIdentifier(),
+                    transaction.getValue(),
+                    TransactionResult.ResultType.APPROVED,
+                    null);
         } catch (NoResultException e) {
-            transactionResult = new TransactionResult(transaction.getAccountNo(), transaction.getTrxIdentifier(),
-                    transaction.getValue(), TransactionResult.ResultType.DENIED, "No Balance for account " + transaction.getAccountNo());
+            transactionResult = new TransactionResult(
+                    transaction.getAccountNo(),
+                    transaction.getTrxIdentifier(),
+                    transaction.getValue(),
+                    TransactionResult.ResultType.DENIED,
+                    "No Balance for account " + transaction.getAccountNo());
         } catch (InsufficientBalanceException e) {
-            transactionResult = new TransactionResult(transaction.getAccountNo(), transaction.getTrxIdentifier(),
-                    transaction.getValue(), TransactionResult.ResultType.DENIED, e.getMessage());
+            transactionResult = new TransactionResult(
+                    transaction.getAccountNo(),
+                    transaction.getTrxIdentifier(),
+                    transaction.getValue(),
+                    TransactionResult.ResultType.DENIED,
+                    e.getMessage());
         } finally {
             if (transactionResult != null) {
-                producer.produceMessage(transactionResult);
+                producer.produceMessage(PAYMENT_RESPONSE, transactionResult);
             }
         }
     }

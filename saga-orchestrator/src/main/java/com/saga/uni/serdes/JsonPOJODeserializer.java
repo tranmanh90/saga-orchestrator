@@ -10,10 +10,9 @@ import java.util.logging.Logger;
 
 public class JsonPOJODeserializer<T> implements Deserializer<T> {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private Class<T> tClass;
+    private final Class<T> tClass;
 
     public JsonPOJODeserializer(Class<T> clazz){
         this.tClass = clazz;

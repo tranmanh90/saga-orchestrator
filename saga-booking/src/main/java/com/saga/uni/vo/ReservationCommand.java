@@ -1,11 +1,11 @@
 package com.saga.uni.vo;
 
+import lombok.Data;
+
+@Data
 public class ReservationCommand {
-    
     private String order;
-
     private ReservationRequest reservationRequest;
-
 
     public ReservationCommand() {
     }
@@ -16,7 +16,7 @@ public class ReservationCommand {
         switch (reservationRequest) {
             case CANCEL:
             case CONFIRM:
-                if (room == null || order == null){
+                if (room == null || order == null) {
                     throw new IllegalArgumentException(reservationRequest + " requires an order number");
                 }
                 break;
@@ -25,37 +25,7 @@ public class ReservationCommand {
         }
     }
 
-    public String getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
-
-    public ReservationRequest getReservationRequest() {
-        return this.reservationRequest;
-    }
-
-    public void setReservationRequest(ReservationRequest reservationRequest) {
-        this.reservationRequest = reservationRequest;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "{" +
-            " order='" + getOrder() + "'" +
-            ", reservationRequest='" + getReservationRequest() + "'" +
-            "}";
-    }
-
-
-    
-    public static enum ReservationRequest{
+    public enum ReservationRequest {
         RESERVE, CONFIRM, CANCEL
     }
-
-
 }
