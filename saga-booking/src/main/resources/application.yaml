@@ -29,8 +29,8 @@ spring:
       group-id: booking
       auto-offset-reset: latest
       value-deserializer: com.saga.uni.serdes.JsonDeserializer
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
     producer:
       value-serializer: com.saga.uni.serdes.JsonSerializer
-      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
     bootstrap-servers: 10.50.99.50:30001

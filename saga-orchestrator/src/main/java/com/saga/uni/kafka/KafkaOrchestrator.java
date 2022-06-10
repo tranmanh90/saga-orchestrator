@@ -53,15 +53,14 @@ public class KafkaOrchestrator {
 
     private void cancelOrderForDeniedReservations(KStream<String, ReservationResult> reservationKStream) {
         KStream<String, OrderCommand> orderResponseStream = reservationKStream.mapValues((reservation) -> {
-            return new OrderCommand(reservation.getOrder(), OrderCommand.OrderRequest.CANCEL, reservation.getCause());
+            return new OrderCommand(reservation.getOrder(), OrderStatus.CANCEL, reservation.getCause());
         });
         orderResponseStream.foreach((key, value) -> logger.info("Sending Order response: " + value));
         orderResponseStream.to(ORDER_RESPONSE, Produced.with(Serdes.String(), SerdesFactory.getSerde(OrderCommand.class)));
     }
 
     private KStream<String, ReservationResult>[] getRoomReservationResponse(StreamsBuilder builder) {
-        KStream<String, ReservationResult> results[] = builder.stream(RESERVATION_RESPONSE,
-                Consumed.with(Serdes.String(), SerdesFactory.getSerde(ReservationResult.class)))
+        KStream<String, ReservationResult>[] results = builder.stream(RESERVATION_RESPONSE, Consumed.with(Serdes.String(), SerdesFactory.getSerde(ReservationResult.class)))
                 .branch(
                         (key, value) -> RoomStatus.RESERVED.equals(value.getReservationStatus()),
                         (key, value) -> (value.getCause() != null)
@@ -76,8 +75,7 @@ public class KafkaOrchestrator {
             return new ReservationCommand(value.getId(), ReservationRequest.RESERVE);
         });
         reservationRequestStream.foreach((key, value) -> logger.info("Requesting a Room " + value));
-        reservationRequestStream.to(RESERVATION_REQUEST,
-                Produced.with(Serdes.String(), SerdesFactory.getSerde(ReservationCommand.class)));
+        reservationRequestStream.to(RESERVATION_REQUEST, Produced.with(Serdes.String(), SerdesFactory.getSerde(ReservationCommand.class)));
     }
 
     private void sendBookingCommand(KStream<String, PaymentResponse> paymentResponseStream) {
@@ -100,14 +98,14 @@ public class KafkaOrchestrator {
 
     private void sendOrderResponse(KStream<String, PaymentResponse> paymentResponseStream) {
         KStream<String, OrderCommand> orderResponseStream = paymentResponseStream.mapValues((paymentResponse) -> {
-            OrderCommand.OrderRequest orderRequest = null;
+            OrderStatus orderRequest = null;
             String cause = paymentResponse.getCause();
             switch (paymentResponse.getResultType()) {
                 case APPROVED:
-                    orderRequest = OrderCommand.OrderRequest.CONFIRM;
+                    orderRequest = OrderStatus.CONFIRM;
                     break;
                 case DENIED:
-                    orderRequest = OrderCommand.OrderRequest.CANCEL;
+                    orderRequest = OrderStatus.CANCEL;
                     break;
             }
             return new OrderCommand(paymentResponse.getTrxIdentifier(), orderRequest, cause);
@@ -125,7 +123,7 @@ public class KafkaOrchestrator {
 
     private KStream<String, PaymentRequest> sendPaymentRequestForApprovedReservations(KStream<String, ReservationResult> reservationResult) {
         KStream<String, PaymentRequest> paymentStream = reservationResult.mapValues((reservation) -> {
-            return new PaymentRequest("8668111", reservation.getOrder(), TransactionType.WITHDRAW, reservation.getPrice());
+            return new PaymentRequest("86681111", reservation.getOrder(), TransactionType.WITHDRAW, reservation.getPrice());
         });
         paymentStream.foreach((key, value) -> logger.info("Sending Payment request: " + value));
         paymentStream.to(PAYMENT_REQUEST, Produced.with(Serdes.String(), SerdesFactory.getSerde(PaymentRequest.class)));

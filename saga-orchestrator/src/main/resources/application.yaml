@@ -18,6 +18,6 @@ spring:
     streams:
       application-id: ${spring.application.name}
       client-id: ${spring.application.name}-stream
-#      properties:
-#        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      properties:
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde

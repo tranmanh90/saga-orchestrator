@@ -29,8 +29,8 @@ spring:
       group-id: payment
       auto-offset-reset: latest
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
     bootstrap-servers: 10.50.99.50:30001

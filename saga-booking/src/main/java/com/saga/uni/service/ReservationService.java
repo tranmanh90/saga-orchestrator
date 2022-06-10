@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Service
@@ -46,14 +47,14 @@ public class ReservationService implements IReservationService {
 
     @Override
     public ReservationResult confirmRoom(ReservationCommand reservationCommand) {
-        List<Room> rooms = roomRepository.findRoomByStatusAndOrder(RoomStatus.RESERVED, reservationCommand.getOrder());
+        List<Room> rooms = roomRepository.findRoomByStatusAndOrder(RoomStatus.RESERVED, String.valueOf(reservationCommand.getOrder()));
         if (rooms.size() > 0) {
             Room room = rooms.get(0);
-            room.setOrder(reservationCommand.getOrder());
+            room.setOrder(String.valueOf(reservationCommand.getOrder()));
             room.setStatus(RoomStatus.CONFIRMED);
             roomRepository.save(room);
             return ReservationResult.builder()
-                    .order(room.getOrder())
+                    .order(UUID.fromString(room.getOrder()))
                     .room(room.getRoomNo())
                     .price(room.getPrice())
                     .reservationStatus(room.getStatus())
@@ -66,16 +67,17 @@ public class ReservationService implements IReservationService {
 
     @Override
     public ReservationResult cancelRoom(ReservationCommand reservationCommand) {
-        List<Room> rooms = roomRepository.findRoomByStatusAndOrder(RoomStatus.RESERVED, reservationCommand.getOrder());
+        List<Room> rooms = roomRepository.findRoomByStatusAndOrder(RoomStatus.RESERVED, String.valueOf(reservationCommand.getOrder()));
         if (rooms.size() > 0) {
             Room room = rooms.get(0);
             room.setOrder(null);
             room.setStatus(RoomStatus.FREE);
             roomRepository.save(room);
             return ReservationResult.builder()
-                    .order(room.getOrder())
+                    .order(room.getOrder() == null ? null : UUID.fromString(room.getOrder()))
                     .room(room.getRoomNo())
                     .price(room.getPrice())
+                    .reservationStatus(room.getStatus())
                     .build();
         } else {
             return new ReservationResult(reservationCommand.getOrder(), null, null, null,
@@ -88,13 +90,14 @@ public class ReservationService implements IReservationService {
         List<Room> rooms = roomRepository.findRoomByStatus(RoomStatus.FREE);
         if (rooms.size() > 0) {
             Room room = rooms.get(0);
-            room.setOrder(reservationCommand.getOrder());
+            room.setOrder(String.valueOf(reservationCommand.getOrder()));
             room.setStatus(RoomStatus.RESERVED);
             roomRepository.save(room);
             return ReservationResult.builder()
-                    .order(room.getOrder())
+                    .order(UUID.fromString(room.getOrder()))
                     .room(room.getRoomNo())
                     .price(room.getPrice())
+                    .reservationStatus(room.getStatus())
                     .build();
         } else {
             return new ReservationResult(reservationCommand.getOrder(), null, null, null,
@@ -111,9 +114,10 @@ public class ReservationService implements IReservationService {
             room.setStatus(RoomStatus.FREE);
             roomRepository.save(room);
             return ReservationResult.builder()
-                    .order(room.getOrder())
+                    .order(UUID.fromString(room.getOrder()))
                     .room(room.getRoomNo())
                     .price(room.getPrice())
+                    .reservationStatus(room.getStatus())
                     .build();
         } else {
             return new ReservationResult(null, roomNo, null, null, "There's no such room to be canceled");

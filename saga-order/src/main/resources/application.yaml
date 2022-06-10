@@ -29,6 +29,8 @@ spring:
       group-id: order
       auto-offset-reset: latest
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     bootstrap-servers: 10.50.99.50:30001
