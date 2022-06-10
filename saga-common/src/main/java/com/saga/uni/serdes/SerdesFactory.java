@@ -7,8 +7,8 @@ import org.apache.kafka.common.serialization.Serializer;
 
 public class SerdesFactory {
     public static <T> Serde<T> getSerde(Class<T> type){
-        final Serializer<T> serializer = new JsonPOJOSerializer<>();
-        final Deserializer<T> deserializer = new JsonPOJODeserializer<>(type);
+        final Serializer<T> serializer = new JsonSerializer<>();
+        final Deserializer<T> deserializer = new JsonDeserializer<>(type);
         return Serdes.serdeFrom(serializer, deserializer);
     }
 }

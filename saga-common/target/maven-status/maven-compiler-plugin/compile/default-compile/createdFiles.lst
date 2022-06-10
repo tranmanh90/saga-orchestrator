@@ -10,6 +10,7 @@ com/saga/uni/model/ReservationCommand.class
 com/saga/uni/model/OrderCommand$OrderRequest.class
 com/saga/uni/vo/OrderStatus.class
 com/saga/uni/vo/ReservationRequest.class
+com/saga/uni/serdes/JsonDeserializer.class
 com/saga/uni/util/Mapper.class
 com/saga/uni/serdes/SerdesFactory.class
 com/saga/uni/model/OrderCreatedEvent.class
@@ -17,5 +18,6 @@ com/saga/uni/vo/ResultType.class
 com/saga/uni/model/ReservationResult$ReservationResultBuilder.class
 com/saga/uni/serdes/JsonPOJOSerializer.class
 com/saga/uni/model/PaymentRequest.class
+com/saga/uni/serdes/JsonSerializer.class
 com/saga/uni/model/PaymentResponse.class
 com/saga/uni/serdes/JsonPOJODeserializer.class

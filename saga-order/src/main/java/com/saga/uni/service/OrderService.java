@@ -6,6 +6,7 @@ import com.saga.uni.dto.UpdateOrderRequest;
 import com.saga.uni.dto.UpdateOrderResponse;
 import com.saga.uni.entity.Order;
 import com.saga.uni.kafka.OrderKafkaProducer;
+import com.saga.uni.model.OrderCreatedEvent;
 import com.saga.uni.repository.IOrderRepository;
 import com.saga.uni.util.JsonService;
 import com.saga.uni.util.Mapper;
@@ -39,8 +40,12 @@ public class OrderService implements IOrderService {
         // todo
 
         /** Send order request to orchestrator **/
-        String str = JsonService.toString(order);
-        producer.produceMessage(ORDER_REQUEST, str);
+        OrderCreatedEvent createdEvent = OrderCreatedEvent.builder()
+                .id(order.getId())
+                .status(order.getStatus())
+                .cause(order.getCause())
+                .build();
+        producer.produceMessage(ORDER_REQUEST, createdEvent);
         return Mapper.mapper(order, CreateOrderResponse.class);
     }
 

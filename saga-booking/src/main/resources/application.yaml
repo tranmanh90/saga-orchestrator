@@ -27,10 +27,10 @@ spring:
   kafka:
     consumer:
       group-id: booking
-      auto-offset-reset: earliest
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.value.default.type: com.saga.uni.model.ReservationCommand
+      auto-offset-reset: latest
+      value-deserializer: com.saga.uni.serdes.JsonDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
-      value-serializer: com.saga.uni.serdes.JsonPOJOSerializer
+      value-serializer: com.saga.uni.serdes.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
     bootstrap-servers: 10.50.99.50:30001

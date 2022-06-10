@@ -2,6 +2,7 @@ package com.saga.uni.kafka;
 
 import com.saga.uni.model.*;
 import com.saga.uni.serdes.SerdesFactory;
+import com.saga.uni.vo.OrderStatus;
 import com.saga.uni.vo.ReservationRequest;
 import com.saga.uni.vo.RoomStatus;
 import com.saga.uni.vo.TransactionType;
@@ -72,7 +73,6 @@ public class KafkaOrchestrator {
 
     private void requestRoomReservation(KStream<String, OrderCreatedEvent> orderCreatedStream) {
         KStream<String, ReservationCommand> reservationRequestStream = orderCreatedStream.mapValues((value) -> {
-            log.warn(String.valueOf(value));
             return new ReservationCommand(value.getId(), ReservationRequest.RESERVE);
         });
         reservationRequestStream.foreach((key, value) -> logger.info("Requesting a Room " + value));
@@ -135,7 +135,7 @@ public class KafkaOrchestrator {
     private KStream<String, OrderCreatedEvent> getPendingOrders(StreamsBuilder builder) {
         KStream<String, OrderCreatedEvent> orderInputStream = builder.stream(ORDER_REQUEST, Consumed.with(Serdes.String(), SerdesFactory.getSerde(OrderCreatedEvent.class)));
         orderInputStream.filter((key, value) -> value != null)
-                .filter((key, value) -> value.getStatus() == OrderCreatedEvent.OrderStatus.PENDING)
+                .filter((key, value) -> value.getStatus() == OrderStatus.PENDING)
                 .foreach((key, value) -> logger.info("Reading PENDING Order: " + value));
         return orderInputStream;
     }

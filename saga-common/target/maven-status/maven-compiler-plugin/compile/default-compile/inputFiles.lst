@@ -6,6 +6,8 @@
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/util/JsonService.java
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/model/ReservationResult.java
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/model/OrderCommand.java
+/home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/serdes/JsonSerializer.java
+/home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/serdes/JsonDeserializer.java
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/serdes/JsonService.java
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/vo/ResultType.java
 /home/manhtv/unicloud/umee-reference/saga/orchestrator-tutorial/saga/saga-common/src/main/java/com/saga/uni/model/ReservationCommand.java
